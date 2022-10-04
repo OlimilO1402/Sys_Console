@@ -323,67 +323,138 @@ Private Type CONSOLE_CURSOR_INFO
     dwSize   As Long
     bVisible As Boolean
 End Type
-
-'Console related API-deklarations
-'https://learn.microsoft.com/de-de/windows/console/allocconsole
-Private Declare Function AllocConsole Lib "kernel32" () As Long
-'https://learn.microsoft.com/de-de/windows/console/freeconsole
-Private Declare Function FreeConsole Lib "kernel32" () As Long
-'https://learn.microsoft.com/de-de/windows/console/getstdhandle
-Private Declare Function GetStdHandle Lib "kernel32" (ByVal nStdHandle As Long) As LongPtr
-'https://learn.microsoft.com/de-de/windows-hardware/drivers/debugger/-closehandle--close-handle-
-Private Declare Function CloseHandle Lib "kernel32" (ByVal hObject As LongPtr) As Long
-'https://learn.microsoft.com/de-de/windows/console/writeconsole
-Private Declare Function WriteConsoleW Lib "kernel32" (ByVal hConsoleOutput As LongPtr, ByVal lpbuffer As LongPtr, ByVal nNumberOfCharsToWrite As Long, ByRef lpNumberOfCharsWritten As Long, lpReserved As Long) As Long
-'https://learn.microsoft.com/de-de/windows/console/readconsole
-Private Declare Function ReadConsoleW Lib "kernel32" (ByVal hConsoleInput As LongPtr, ByVal lpbuffer As LongPtr, ByVal nNumberOfCharsToRead As Long, ByRef lpNumberOfCharsRead As Long, lpReserved As Long) As Long
-'https://learn.microsoft.com/de-de/windows/console/setconsolemode
-Private Declare Function SetConsoleMode Lib "kernel32" (ByVal hConsoleOutput As LongPtr, ByVal dwMode As Long) As Long
-'https://learn.microsoft.com/de-de/windows/console/getconsolemode
-Private Declare Function GetConsoleMode Lib "kernel32" (ByVal hConsoleHandle As LongPtr, lpMode As Long) As Long
-'https://learn.microsoft.com/de-de/windows/console/setconsoletitle
-Private Declare Function SetConsoleTitleW Lib "kernel32" (ByVal lpConsoleTitle As LongPtr) As Long
-'https://learn.microsoft.com/en-us/windows/console/getconsoletitle
-Private Declare Function GetConsoleTitleW Lib "kernel32" (ByVal lpConsoleTitle As LongPtr, ByVal nSize As Long) As Long
-'https://learn.microsoft.com/de-de/windows/console/setconsoletextattribute
-Private Declare Function SetConsoleTextAttribute Lib "kernel32" (ByVal hConsoleOutput As LongPtr, ByVal wAttributes As Integer) As Long
-
-'https://learn.microsoft.com/de-de/windows/console/getconsolescreenbufferinfo
-Private Declare Function GetConsoleScreenBufferInfo Lib "kernel32" (ByVal hConsoleOutput As LongPtr, lpConsoleScreenBufferInfo As CONSOLE_SCREEN_BUFFER_INFO) As Long
-'https://learn.microsoft.com/de-de/windows/console/setconsolescreenbuffersize
-Private Declare Function SetConsoleScreenBufferSize Lib "kernel32" (ByVal hConsoleOutput As LongPtr, ByVal dwSize As Long) As Long  'BOOL
-
-'https://learn.microsoft.com/de-de/windows/console/peekconsoleinput
-Private Declare Function PeekConsoleInput Lib "kernel32" (ByVal hConsoleInput As LongPtr, lpbuffer As InputRecord, ByVal nLength As Long, ByRef lpNumberOfEventsRead_out As Long) As Long  ' BOOL
-'https://learn.microsoft.com/en-us/windows/console/readconsoleinput
-Private Declare Function ReadConsoleInput Lib "kernel32" (ByVal hConsoleInput As LongPtr, lpbuffer As InputRecord, ByVal numInputRecords_UseOne As Long, ByRef lpNumberOfEventsRead As Long) As Long
-
-'https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getkeystate
-Private Declare Function GetKeyState Lib "user32" (ByVal virtualKeyCode As Long) As Integer
-
-'https://learn.microsoft.com/de-de/windows/console/setconsolecursorposition
-Private Declare Function SetConsoleCursorPosition Lib "kernel32" (ByVal hConsoleOutput As LongPtr, ByVal cursorPosition As Long) As Long 'bool
-'https://learn.microsoft.com/de-de/windows/console/getconsolecursorinfo
-Private Declare Function GetConsoleCursorInfo Lib "kernel32" (ByVal hConsoleOutput As LongPtr, cci As CONSOLE_CURSOR_INFO) As Long  'bool
-'https://learn.microsoft.com/de-de/windows/console/setconsolecursorinfo
-Private Declare Function SetConsoleCursorInfo Lib "kernel32" (ByVal hConsoleOutput As LongPtr, cci As CONSOLE_CURSOR_INFO) As Long  'bool
-
-'https://learn.microsoft.com/de-de/windows/console/getlargestconsolewindowsize
-Private Declare Function GetLargestConsoleWindowSize Lib "kernel32" (ByVal hConsoleOutput As LongPtr) As Long 'COORD
-
-'https://learn.microsoft.com/de-de/windows/console/setconsolewindowinfo
-Private Declare Function SetConsoleWindowInfo Lib "kernel32" (ByVal hConsoleOutput As LongPtr, ByVal absolute As Long, consoleWindow As SMALL_RECT) As Long ' bool
-
-
-' File IO functions
-'https://learn.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-readfile
-Private Declare Function ReadFile Lib "kernel32" (ByVal hFile As LongPtr, ByVal lpbuffer As LongPtr, ByVal nNumberOfBytesToRead As Long, lpNumberOfBytesRead As Long, lpOverlapped As Any) As Long
-'https://learn.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-writefile
-Private Declare Function WriteFile Lib "kernel32" (ByVal hFile As LongPtr, ByVal lpbuffer As LongPtr, ByVal nNumberOfBytesToWrite As Long, lpNumberOfBytesWritten As Long, lpOverlapped As Any) As Long
-
-'https://learn.microsoft.com/en-us/windows/win32/api/utilapiset/nf-utilapiset-beep
-Private Declare Function Intern_Beep Lib "kernel32" Alias "Beep" (ByVal dwFreq As Long, ByVal dwDuration As Long) As Long
-
+#If VBA7 Then
+    'Console related API-deklarations
+    'https://learn.microsoft.com/de-de/windows/console/allocconsole
+    Private Declare PtrSafe Function AllocConsole Lib "kernel32" () As Long
+    'https://learn.microsoft.com/de-de/windows/console/freeconsole
+    Private Declare PtrSafe Function FreeConsole Lib "kernel32" () As Long
+    'https://learn.microsoft.com/de-de/windows/console/getstdhandle
+    Private Declare PtrSafe Function GetStdHandle Lib "kernel32" (ByVal nStdHandle As Long) As LongPtr
+    'https://learn.microsoft.com/de-de/windows-hardware/drivers/debugger/-closehandle--close-handle-
+    Private Declare PtrSafe Function CloseHandle Lib "kernel32" (ByVal hObject As LongPtr) As Long
+    'https://learn.microsoft.com/de-de/windows/console/writeconsole
+    Private Declare PtrSafe Function WriteConsoleW Lib "kernel32" (ByVal hConsoleOutput As LongPtr, ByVal lpbuffer As LongPtr, ByVal nNumberOfCharsToWrite As Long, ByRef lpNumberOfCharsWritten As Long, lpReserved As Long) As Long
+    'https://learn.microsoft.com/de-de/windows/console/readconsole
+    Private Declare PtrSafe Function ReadConsoleW Lib "kernel32" (ByVal hConsoleInput As LongPtr, ByVal lpbuffer As LongPtr, ByVal nNumberOfCharsToRead As Long, ByRef lpNumberOfCharsRead As Long, lpReserved As Long) As Long
+    'https://learn.microsoft.com/de-de/windows/console/setconsolemode
+    Private Declare PtrSafe Function SetConsoleMode Lib "kernel32" (ByVal hConsoleOutput As LongPtr, ByVal dwMode As Long) As Long
+    'https://learn.microsoft.com/de-de/windows/console/getconsolemode
+    Private Declare PtrSafe Function GetConsoleMode Lib "kernel32" (ByVal hConsoleHandle As LongPtr, lpMode As Long) As Long
+    'https://learn.microsoft.com/de-de/windows/console/setconsoletitle
+    Private Declare PtrSafe Function SetConsoleTitleW Lib "kernel32" (ByVal lpConsoleTitle As LongPtr) As Long
+    'https://learn.microsoft.com/en-us/windows/console/getconsoletitle
+    Private Declare PtrSafe Function GetConsoleTitleW Lib "kernel32" (ByVal lpConsoleTitle As LongPtr, ByVal nSize As Long) As Long
+    'https://learn.microsoft.com/de-de/windows/console/setconsoletextattribute
+    Private Declare PtrSafe Function SetConsoleTextAttribute Lib "kernel32" (ByVal hConsoleOutput As LongPtr, ByVal wAttributes As Integer) As Long
+    
+    'https://learn.microsoft.com/de-de/windows/console/getconsolescreenbufferinfo
+    Private Declare PtrSafe Function GetConsoleScreenBufferInfo Lib "kernel32" (ByVal hConsoleOutput As LongPtr, lpConsoleScreenBufferInfo As CONSOLE_SCREEN_BUFFER_INFO) As Long
+    'https://learn.microsoft.com/de-de/windows/console/setconsolescreenbuffersize
+    Private Declare PtrSafe Function SetConsoleScreenBufferSize Lib "kernel32" (ByVal hConsoleOutput As LongPtr, ByVal dwSize As Long) As Long   'BOOL
+    
+    'https://learn.microsoft.com/de-de/windows/console/peekconsoleinput
+    Private Declare PtrSafe Function PeekConsoleInput Lib "kernel32" (ByVal hConsoleInput As LongPtr, lpbuffer As InputRecord, ByVal nLength As Long, ByRef lpNumberOfEventsRead_out As Long) As Long   ' BOOL
+    'https://learn.microsoft.com/en-us/windows/console/readconsoleinput
+    Private Declare PtrSafe Function ReadConsoleInput Lib "kernel32" (ByVal hConsoleInput As LongPtr, lpbuffer As InputRecord, ByVal numInputRecords_UseOne As Long, ByRef lpNumberOfEventsRead As Long) As Long
+    
+    'https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getkeystate
+    Private Declare PtrSafe Function GetKeyState Lib "user32" (ByVal virtualKeyCode As Long) As Integer
+    
+    'https://learn.microsoft.com/de-de/windows/console/setconsolecursorposition
+    Private Declare PtrSafe Function SetConsoleCursorPosition Lib "kernel32" (ByVal hConsoleOutput As LongPtr, ByVal cursorPosition As Long) As Long  'bool
+    'https://learn.microsoft.com/de-de/windows/console/getconsolecursorinfo
+    Private Declare PtrSafe Function GetConsoleCursorInfo Lib "kernel32" (ByVal hConsoleOutput As LongPtr, cci As CONSOLE_CURSOR_INFO) As Long   'bool
+    'https://learn.microsoft.com/de-de/windows/console/setconsolecursorinfo
+    Private Declare PtrSafe Function SetConsoleCursorInfo Lib "kernel32" (ByVal hConsoleOutput As LongPtr, cci As CONSOLE_CURSOR_INFO) As Long   'bool
+    
+    'https://learn.microsoft.com/de-de/windows/console/getlargestconsolewindowsize
+    Private Declare PtrSafe Function GetLargestConsoleWindowSize Lib "kernel32" (ByVal hConsoleOutput As LongPtr) As Long  'COORD
+    
+    'https://learn.microsoft.com/de-de/windows/console/setconsolewindowinfo
+    Private Declare PtrSafe Function SetConsoleWindowInfo Lib "kernel32" (ByVal hConsoleOutput As LongPtr, ByVal absolute As Long, consoleWindow As SMALL_RECT) As Long  ' bool
+    
+    ' File IO functions
+    'https://learn.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-readfile
+    Private Declare PtrSafe Function ReadFile Lib "kernel32" (ByVal hFile As LongPtr, ByVal lpbuffer As LongPtr, ByVal nNumberOfBytesToRead As Long, lpNumberOfBytesRead As Long, lpOverlapped As Any) As Long
+    'https://learn.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-writefile
+    Private Declare PtrSafe Function WriteFile Lib "kernel32" (ByVal hFile As LongPtr, ByVal lpbuffer As LongPtr, ByVal nNumberOfBytesToWrite As Long, lpNumberOfBytesWritten As Long, lpOverlapped As Any) As Long
+    
+    'https://learn.microsoft.com/en-us/windows/win32/api/utilapiset/nf-utilapiset-beep
+    Private Declare PtrSafe Function Intern_Beep Lib "kernel32" Alias "Beep" (ByVal dwFreq As Long, ByVal dwDuration As Long) As Long
+    'https://learn.microsoft.com/en-us/windows/console/getconsolewindow?redirectedfrom=MSDN
+    Private Declare PtrSafe Function GetConsoleWindow Lib "kernel32" () As LongPtr
+    'https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setfocus
+    Private Declare PtrSafe Function Intern_SetFocus Lib "user32" Alias "SetFocus" (ByVal aHWND As LongPtr) As LongPtr
+    'https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setforegroundwindow
+    Private Declare PtrSafe Function SetForegroundWindow Lib "user32" (ByVal aHWND As LongPtr) As Long 'Bool
+#Else
+    'Console related API-deklarations
+    'https://learn.microsoft.com/de-de/windows/console/allocconsole
+    Private Declare Function AllocConsole Lib "kernel32" () As Long
+    'https://learn.microsoft.com/de-de/windows/console/freeconsole
+    Private Declare Function FreeConsole Lib "kernel32" () As Long
+    'https://learn.microsoft.com/de-de/windows/console/getstdhandle
+    Private Declare Function GetStdHandle Lib "kernel32" (ByVal nStdHandle As Long) As LongPtr
+    'https://learn.microsoft.com/de-de/windows-hardware/drivers/debugger/-closehandle--close-handle-
+    Private Declare Function CloseHandle Lib "kernel32" (ByVal hObject As LongPtr) As Long
+    'https://learn.microsoft.com/de-de/windows/console/writeconsole
+    Private Declare Function WriteConsoleW Lib "kernel32" (ByVal hConsoleOutput As LongPtr, ByVal lpbuffer As LongPtr, ByVal nNumberOfCharsToWrite As Long, ByRef lpNumberOfCharsWritten As Long, lpReserved As Long) As Long
+    'https://learn.microsoft.com/de-de/windows/console/readconsole
+    Private Declare Function ReadConsoleW Lib "kernel32" (ByVal hConsoleInput As LongPtr, ByVal lpbuffer As LongPtr, ByVal nNumberOfCharsToRead As Long, ByRef lpNumberOfCharsRead As Long, lpReserved As Long) As Long
+    'https://learn.microsoft.com/de-de/windows/console/setconsolemode
+    Private Declare Function SetConsoleMode Lib "kernel32" (ByVal hConsoleOutput As LongPtr, ByVal dwMode As Long) As Long
+    'https://learn.microsoft.com/de-de/windows/console/getconsolemode
+    Private Declare Function GetConsoleMode Lib "kernel32" (ByVal hConsoleHandle As LongPtr, lpMode As Long) As Long
+    'https://learn.microsoft.com/de-de/windows/console/setconsoletitle
+    Private Declare Function SetConsoleTitleW Lib "kernel32" (ByVal lpConsoleTitle As LongPtr) As Long
+    'https://learn.microsoft.com/en-us/windows/console/getconsoletitle
+    Private Declare Function GetConsoleTitleW Lib "kernel32" (ByVal lpConsoleTitle As LongPtr, ByVal nSize As Long) As Long
+    'https://learn.microsoft.com/de-de/windows/console/setconsoletextattribute
+    Private Declare Function SetConsoleTextAttribute Lib "kernel32" (ByVal hConsoleOutput As LongPtr, ByVal wAttributes As Integer) As Long
+    
+    'https://learn.microsoft.com/de-de/windows/console/getconsolescreenbufferinfo
+    Private Declare Function GetConsoleScreenBufferInfo Lib "kernel32" (ByVal hConsoleOutput As LongPtr, lpConsoleScreenBufferInfo As CONSOLE_SCREEN_BUFFER_INFO) As Long
+    'https://learn.microsoft.com/de-de/windows/console/setconsolescreenbuffersize
+    Private Declare Function SetConsoleScreenBufferSize Lib "kernel32" (ByVal hConsoleOutput As LongPtr, ByVal dwSize As Long) As Long  'BOOL
+    
+    'https://learn.microsoft.com/de-de/windows/console/peekconsoleinput
+    Private Declare Function PeekConsoleInput Lib "kernel32" (ByVal hConsoleInput As LongPtr, lpbuffer As InputRecord, ByVal nLength As Long, ByRef lpNumberOfEventsRead_out As Long) As Long  ' BOOL
+    'https://learn.microsoft.com/en-us/windows/console/readconsoleinput
+    Private Declare Function ReadConsoleInput Lib "kernel32" (ByVal hConsoleInput As LongPtr, lpbuffer As InputRecord, ByVal numInputRecords_UseOne As Long, ByRef lpNumberOfEventsRead As Long) As Long
+    
+    'https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getkeystate
+    Private Declare Function GetKeyState Lib "user32" (ByVal virtualKeyCode As Long) As Integer
+    
+    'https://learn.microsoft.com/de-de/windows/console/setconsolecursorposition
+    Private Declare Function SetConsoleCursorPosition Lib "kernel32" (ByVal hConsoleOutput As LongPtr, ByVal cursorPosition As Long) As Long 'bool
+    'https://learn.microsoft.com/de-de/windows/console/getconsolecursorinfo
+    Private Declare Function GetConsoleCursorInfo Lib "kernel32" (ByVal hConsoleOutput As LongPtr, cci As CONSOLE_CURSOR_INFO) As Long  'bool
+    'https://learn.microsoft.com/de-de/windows/console/setconsolecursorinfo
+    Private Declare Function SetConsoleCursorInfo Lib "kernel32" (ByVal hConsoleOutput As LongPtr, cci As CONSOLE_CURSOR_INFO) As Long  'bool
+    
+    'https://learn.microsoft.com/de-de/windows/console/getlargestconsolewindowsize
+    Private Declare Function GetLargestConsoleWindowSize Lib "kernel32" (ByVal hConsoleOutput As LongPtr) As Long 'COORD
+    
+    'https://learn.microsoft.com/de-de/windows/console/setconsolewindowinfo
+    Private Declare Function SetConsoleWindowInfo Lib "kernel32" (ByVal hConsoleOutput As LongPtr, ByVal absolute As Long, consoleWindow As SMALL_RECT) As Long ' bool
+    
+    ' File IO functions
+    'https://learn.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-readfile
+    Private Declare Function ReadFile Lib "kernel32" (ByVal hFile As LongPtr, ByVal lpbuffer As LongPtr, ByVal nNumberOfBytesToRead As Long, lpNumberOfBytesRead As Long, lpOverlapped As Any) As Long
+    'https://learn.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-writefile
+    Private Declare Function WriteFile Lib "kernel32" (ByVal hFile As LongPtr, ByVal lpbuffer As LongPtr, ByVal nNumberOfBytesToWrite As Long, lpNumberOfBytesWritten As Long, lpOverlapped As Any) As Long
+    
+    'https://learn.microsoft.com/en-us/windows/win32/api/utilapiset/nf-utilapiset-beep
+    Private Declare Function Intern_Beep Lib "kernel32" Alias "Beep" (ByVal dwFreq As Long, ByVal dwDuration As Long) As Long
+    'https://learn.microsoft.com/en-us/windows/console/getconsolewindow?redirectedfrom=MSDN
+    Private Declare Function GetConsoleWindow Lib "kernel32" () As LongPtr
+    'https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setfocus
+    Private Declare Function Intern_SetFocus Lib "user32" Alias "SetFocus" (ByVal aHWND As LongPtr) As LongPtr
+    'https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setforegroundwindow
+    Private Declare Function SetForegroundWindow Lib "user32" (ByVal aHWND As LongPtr) As Long 'Bool
+    
+#End If
 Private m_cachedInputRecord     As InputRecord
 Private m_haveReadDefaultColors As Boolean
 Private m_defaultColors         As Byte
@@ -415,6 +486,7 @@ Private m_IOMode    As ConsoleIOMode
 Private m_cci       As CONSOLE_CURSOR_INFO
 
 ' Handles
+Private m_hWnd      As LongPtr
 Private hConsoleIn  As LongPtr
 Private hConsoleOut As LongPtr
 Private hConsoleErr As LongPtr
@@ -759,6 +831,15 @@ Private Function GetBufferInfo2(ByVal throwOnNoConsole As Boolean, ByRef succeed
     succeeded = True
     GetBufferInfo2 = lpConsoleScreenBufferInfo
 End Function
+
+Public Property Get hWnd() As LongPtr
+    If m_hWnd = 0 Then m_hWnd = GetConsoleWindow
+    hWnd = m_hWnd
+End Property
+Public Sub SetFocus()
+    Dim aHWND As LongPtr: aHWND = Intern_SetFocus(Me.hWnd)
+    Dim bOK As Boolean: bOK = SetForegroundWindow(Me.hWnd)
+End Sub
 
 Public Property Get IsErrorRedirected() As Boolean
     'If m_stdInRedirectQueried Then

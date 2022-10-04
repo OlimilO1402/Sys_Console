@@ -86,6 +86,7 @@ Sub TestConsoleTitle()
     Console.Title = "VB64free .now empowered by MBO-Ing.com"
     MsgBox "Console.Title=" & Console.Title
     MsgBox "All Handles valid? " & Console.IsHandlesValid
+    Console.SetFocus
 End Sub
 Sub TestConsoleColors()
     Dim s As String: s = " Dings "
@@ -169,7 +170,7 @@ Sub TestConsoleColors()
         Console.ForegroundColor = 15 - i
         Console.WWrite s
     Next
-    
+    Console.SetFocus
 End Sub
 Sub TestConsoleBeep()
     Console.Beep
@@ -181,11 +182,13 @@ Sub TestConsoleBeep()
     Console.BeepF 880, 100
     Console.BeepF 440, 100
     Console.BeepF 220, 100
+    Console.SetFocus
 End Sub
 Sub TestConsoleCursor()
     TestGetCursor
     TestSetCursor
     TestGetCursor
+    Console.SetFocus
 End Sub
 Sub TestGetCursor()
     Dim l As Long:      l = Console.CursorLeft
@@ -200,10 +203,12 @@ Sub TestSetCursor()
 End Sub
 Sub TestConsoleReadWrite()
     Console.WWrite "Frage Ja oder Nein? (Ja/Nein): "
+    Console.SetFocus
     Dim s As String
     s = Console.ReadLine
     Console.WriteLine "Deine Antwort war: " & s
     Console.WWrite "Nenne eine Zahl zwischen 1 und 10: "
+    Console.SetFocus
     s = Console.ReadLine
     Console.WriteLine "Deine Antwort war: " & s
 End Sub
