@@ -16,12 +16,166 @@ Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
 Option Explicit
 'https://github.com/Planet-Source-Code/gridrun-cap-build-real-console-apps-with-vb6__1-38590/blob/master/basDOSConsole.bas
 
-'from Module MPtr we just need LongPtr, so no need for including MPtr if you activate this:
+'from Module MPtr we just need LongPtr, so no need for including MPtr if you just activate this:
 '#If VBA7 = 0 Then
 '    Public Enum LongPtr
 '        [_]
 '    End Enum
 '#End If
+
+Public Enum ConsoleKey
+    ConsoleKey_Backspace = 8      ' Die RÜCKTASTE
+    ConsoleKey_Tab = 9            ' The TAB key
+    ConsoleKey_Clear = 12         ' Die CLEAR-TASTE
+    ConsoleKey_Enter = 13         ' Die EINGABETASTE
+    ConsoleKey_Pause = 19         ' Die PAUSE-TASTE
+    
+    'CapsLock is here selfdefined maybe officially defined in another place???
+    ConsoleKey_CapsLock = 20       ' Die CapsLock Taste
+    
+    ConsoleKey_Escape = 27        ' Die ESC-TASTE
+    ConsoleKey_Spacebar = &H20    ' Die LEERTASTE
+    ConsoleKey_PageUp = 33        ' Die BILD-AUF-TASTE
+    ConsoleKey_PageDown = 34      ' The PAGE DOWN key
+    ConsoleKey_End = 35           ' The END key
+    ConsoleKey_Home = 36          ' The HOME key
+    ConsoleKey_LeftArrow = 37     ' Die NACH-LINKS-TASTE
+    ConsoleKey_UpArrow = 38       ' Die NACH-OBEN-TASTE
+    ConsoleKey_RightArrow = 39    ' Die NACH-RECHTS-TASTE
+    ConsoleKey_DownArrow = 40     ' Die NACH-UNTEN-TASTE
+    ConsoleKey_Select = 41        ' Die SELECT-TASTE
+    ConsoleKey_Print = 42         ' Die DRUCKTASTE
+    ConsoleKey_Execute = 43       ' Die EXECUTE-TASTE
+    ConsoleKey_PrintScreen = 44   ' Die DRUCK-TASTE
+    ConsoleKey_Insert = 45        ' Die EINFG-TASTE
+    ConsoleKey_Delete = 46        ' Die ENTF-TASTE
+    ConsoleKey_Help = 47          ' The HELP key
+    ConsoleKey_D0 = 48            ' The 0 key
+    ConsoleKey_D1 = 49            ' The 1 key
+    ConsoleKey_D2 = 50            ' The 2 key
+    ConsoleKey_D3 = 51            ' The 3 key
+    ConsoleKey_D4 = 52            ' The 4 key
+    ConsoleKey_D5 = 53            ' The 5 key
+    ConsoleKey_D6 = 54            ' The 6 key
+    ConsoleKey_D7 = 55            ' The 7 key
+    ConsoleKey_D8 = 56            ' The 8 key
+    ConsoleKey_D9 = 57            ' The 9 key
+    ConsoleKey_A = 65             ' Die A-TASTE
+    ConsoleKey_B = 66             ' Die B-TASTE
+    ConsoleKey_C = 67             ' Die C-TASTE
+    ConsoleKey_D = 68             ' Die D-TASTE
+    ConsoleKey_E = 69             ' Die E-TASTE
+    ConsoleKey_F = 70             ' Die F-TASTE
+    ConsoleKey_G = 71             ' Die G-TASTE
+    ConsoleKey_H = 72             ' Die H-TASTE
+    ConsoleKey_I = 73             ' Die I-TASTE
+    ConsoleKey_J = 74             ' Die J-TASTE
+    ConsoleKey_K = 75             ' Die K-TASTE
+    ConsoleKey_L = 76             ' Die L-TASTE
+    ConsoleKey_M = 77             ' Die M-TASTE
+    ConsoleKey_N = 78             ' Die N-TASTE
+    ConsoleKey_O = 79             ' Die O-TASTE
+    ConsoleKey_P = 80             ' Die P-TASTE
+    ConsoleKey_Q = 81             ' Die Q-TASTE
+    ConsoleKey_R = 82             ' Die R-TASTE
+    ConsoleKey_s = 83             ' Die S-TASTE
+    ConsoleKey_T = 84             ' Die T-TASTE
+    ConsoleKey_U = 85             ' Die U-TASTE
+    ConsoleKey_V = 86             ' Die V-TASTE
+    ConsoleKey_W = 87             ' Die W-TASTE
+    ConsoleKey_X = 88             ' Die X-TASTE
+    ConsoleKey_Y = 89             ' Die Y-TASTE
+    ConsoleKey_Z = 90             ' Die Z-TASTE
+    ConsoleKey_LeftWindows = 91   ' Die linke WINDOWS-TASTE (Microsoft Natural Keyboard)
+    ConsoleKey_RightWindows = 92  ' Die rechte WINDOWS-TASTE (Microsoft Natural Keyboard)
+    ConsoleKey_Applications = 93  ' Die ANWENDUNGSTASTE (Microsoft Natural Keyboard).
+    ConsoleKey_Sleep = 95         ' Die Standbytaste des Computers
+    ConsoleKey_NumPad0 = 96       ' The 0 key on the numeric keypad
+    ConsoleKey_NumPad1 = 97       ' Die 1-TASTE auf der Zehnertastatur
+    ConsoleKey_NumPad2 = 98       ' Die 2-TASTE auf der Zehnertastatur
+    ConsoleKey_NumPad3 = 99       ' Die 3-TASTE auf der Zehnertastatur
+    ConsoleKey_NumPad4 = 100      ' Die 4-TASTE auf der Zehnertastatur
+    ConsoleKey_NumPad5 = 101      ' Die 5-TASTE auf der Zehnertastatur
+    ConsoleKey_NumPad6 = 102      ' Die 6-TASTE auf der Zehnertastatur
+    ConsoleKey_NumPad7 = 103      ' Die 7-TASTE auf der Zehnertastatur
+    ConsoleKey_NumPad8 = 104      ' The 8 key on the numeric keypad
+    ConsoleKey_NumPad9 = 105      ' The 9 key on the numeric keypad
+    ConsoleKey_Multiply = 106     ' Die MULTIPLIKATIONSTASTE
+    ConsoleKey_Add = 107          ' Die ADDITIONSTASTE
+    ConsoleKey_Separator = 108    ' Die TRENNZEICHENTASTE
+    ConsoleKey_Subtract = 109     ' Die SUBTRAKTIONSTASTE
+    ConsoleKey_Decimal = 110      ' Die KOMMATASTE
+    ConsoleKey_Divide = 111       ' Die DIVISIONSTASTE
+    ConsoleKey_F1 = 112           ' The F1 key
+    ConsoleKey_F2 = 113           ' The F2 key
+    ConsoleKey_F3 = 114           ' The F3 key
+    ConsoleKey_F4 = 115           ' The F4 key
+    ConsoleKey_F5 = 116           ' The F5 key
+    ConsoleKey_F6 = 117           ' The F6 key
+    ConsoleKey_F7 = 118           ' The F7 key
+    ConsoleKey_F8 = 119           ' The F8 key
+    ConsoleKey_F9 = 120           ' The F9 key
+    ConsoleKey_F10 = 121          ' >The F10 key
+    ConsoleKey_F11 = 122          ' The F11 key
+    ConsoleKey_F12 = 123          ' The F12 key
+    ConsoleKey_F13 = 124          ' The F13 key
+    ConsoleKey_F14 = 125          ' The F14 key
+    ConsoleKey_F15 = 126          ' The F15 key
+    ConsoleKey_F16 = &H7F         ' The F16 key
+    ConsoleKey_F17 = &H80         ' The F17 key
+    ConsoleKey_F18 = 129          ' The F18 key
+    ConsoleKey_F19 = 130          ' The F19 key
+    ConsoleKey_F20 = 131          ' The F20 key
+    ConsoleKey_F21 = 132          ' The F21 key
+    ConsoleKey_F22 = 133          ' The F22 key
+    ConsoleKey_F23 = 134          ' The F23 key
+    ConsoleKey_F24 = 135          ' The F24 key
+    
+    ConsoleKey_NumLock = 144
+    
+    ConsoleKey_BrowserBack = 166       ' Die BROWSER-ZURÜCK-TASTE (Windows 2000 oder höher)
+    ConsoleKey_BrowserForward = 167    ' Die BROWSER-VORWÄRTS-TASTE (Windows 2000 oder höher)
+    ConsoleKey_BrowserRefresh = 168    ' Die BROWSER-AKTUALISIEREN-TASTE (Windows 2000 oder höher)
+    ConsoleKey_BrowserStop = 169       ' Die BROWSER-ABBRECHEN-TASTE (Windows 2000 oder höher)
+    ConsoleKey_BrowserSearch = 170     ' Die BROWSER-SUCHEN-TASTE (Windows 2000 oder höher)
+    ConsoleKey_BrowserFavorites = 171  ' Die BROWSER-FAVORITEN-TASTE (Windows 2000 oder höher)
+    ConsoleKey_BrowserHome = 172       ' Die BROWSER-STARTSEITE-TASTE (Windows 2000 oder höher)
+    ConsoleKey_VolumeMute = 173        ' Die Taste zum Stummschalten (Microsoft Natural Keyboard, Windows 2000 oder höher)
+    ConsoleKey_VolumeDown = 174        ' Die Taste zum Verringern der Lautstärke (Microsoft Natural Keyboard, Windows 2000 oder höher)
+    ConsoleKey_VolumeUp = 175          ' Die Taste zum Erhöhen der Lautstärke (Microsoft Natural Keyboard, Windows 2000 oder höher)
+    ConsoleKey_MediaNext = 176         ' Die Playertaste für den nächsten Titel (Windows 2000 oder höher)
+    ConsoleKey_MediaPrevious = 177     ' Die Playertaste für den vorherigen Titel (Windows 2000 oder höher)
+    ConsoleKey_MediaStop = 178         ' Die Playertaste für das Beenden der Wiedergabe (Windows 2000 oder höher)
+    ConsoleKey_MediaPlay = 179         ' Die Playertaste für Wiedergabe und Pause (Windows 2000 oder höher)
+    ConsoleKey_LaunchMail = 180        ' Die MAILTASTE (Microsoft Natural Keyboard, Windows 2000 oder höher)
+    ConsoleKey_LaunchMediaSelect = 181 ' Die Taste für die Medienauswahl (Microsoft Natural Keyboard, Windows 2000 oder höher).
+    ConsoleKey_LaunchApp1 = 182        ' The Start Application 1 key (Microsoft Natural Keyboard, Windows 2000 or later)
+    ConsoleKey_LaunchApp2 = 183        ' Die ANWENDUNGSSTARTTASTE 2 (Microsoft Natural Keyboard, Windows 2000 oder höher)
+    ConsoleKey_Oem1 = 186              ' The OEM 1 key (OEM specific)
+    ConsoleKey_OemPlus = 187           ' Die OEM-abhängige PLUSTASTE auf Tastaturen beliebiger Länder/Regionen (Windows 2000 oder höher)
+    ConsoleKey_OemComma = 188          ' >Die OEM-abhängige KOMMATASTE auf Tastaturen beliebiger Länder/Regionen (Windows 2000 oder höher)
+    ConsoleKey_OemMinus = 189          ' Die OEM-abhängige MINUSTASTE auf Tastaturen beliebiger Länder/Regionen (Windows 2000 oder höher)
+    ConsoleKey_OemPeriod = 190         ' Die OEM-abhängige PUNKTTASTE auf Tastaturen beliebiger Länder/Regionen (Windows 2000 oder höher)
+    ConsoleKey_Oem2 = 191              ' >The OEM 2 key (OEM specific)
+    ConsoleKey_Oem3 = 192              ' The OEM 3 key (OEM specific)
+    ConsoleKey_Oem4 = 219              ' The OEM 4 key (OEM specific)
+    ConsoleKey_Oem5 = 220              ' Die OEM-abhängige 5-TASTE (OEM-spezifisch)
+    ConsoleKey_Oem6 = 221              ' The OEM 6 key (OEM specific)
+    ConsoleKey_Oem7 = 222              ' The OEM 7 key (OEM specific)
+    ConsoleKey_Oem8 = 223              ' The OEM 8 key (OEM specific)
+    ConsoleKey_Oem102 = 226            ' Die OEM-abhängige 102. Taste (OEM-spezifisch)
+    ConsoleKey_Process = 229           ' Die Taste für die IME-Verarbeitung
+    ConsoleKey_Packet = 231            ' Die PACKET-TASTE (zum Übergeben von Unicode-Zeichen mit Tastaturanschlägen)
+    ConsoleKey_Attention = 246         ' The ATTN key.
+    ConsoleKey_CrSel = 247             ' Die CRSEL-TASTE (Cursor auswählen)
+    ConsoleKey_ExSel = 248             ' Die EXSEL-TASTE (Auswahl erweitern)
+    ConsoleKey_EraseEndOfFile = 249    ' Die ERASE EOF-TASTE
+    ConsoleKey_Play = 250              ' The PLAY key
+    ConsoleKey_Zoom = 251              ' The ZOOM key
+    ConsoleKey_NoName = 252            ' Eine für die zukünftige Verwendung reservierte Konstante
+    ConsoleKey_Pa1 = 253               ' Die PA1-TASTE
+    ConsoleKey_OemClear = 254          ' Die CLEAR-TASTE (OEM-spezifisch)
+End Enum
 
 Private Const DefaultConsoleBufferSize As Long = 256
 Private Const AltVKCode                As Integer = 18
@@ -325,7 +479,7 @@ Public Property Get Title() As String
 End Property
 
 Public Property Get BackgroundColorToStr() As String
-    BackgroundColorToStr = MConsole.ConsoleColor_ToStr(Me.BackgroundColor)
+    BackgroundColorToStr = ConsoleColorToStr(Me.BackgroundColor)
 End Property
 Public Property Get BackgroundColor() As ConsoleColor
     Dim succeeded As Boolean
@@ -503,7 +657,7 @@ Public Property Let CursorVisible(ByVal Value As Boolean)
 End Property
 
 Public Property Get ForegroundColorToStr()
-    ForegroundColorToStr = MConsole.ConsoleColor_ToStr(Me.ForegroundColor)
+    ForegroundColorToStr = ConsoleColorToStr(Me.ForegroundColor)
 End Property
 Public Property Get ForegroundColor() As ConsoleColor
     Dim succeeded As Boolean
@@ -543,6 +697,28 @@ Private Function ConsoleColorToColorAttribute(ByVal color As ConsoleColor, ByVal
         color2 = color2 * 16
     End If
     ConsoleColorToColorAttribute = color2
+End Function
+Public Function ConsoleColorToStr(c As ConsoleColor) As String
+    Dim s As String
+    Select Case c
+    Case ConsoleColor.ConsoleColor_Black:       s = "Black"       'Die Farbe Schwarz.
+    Case ConsoleColor.ConsoleColor_DarkBlue:    s = "DarkBlue"    'Die Farbe Dunkelblau.
+    Case ConsoleColor.ConsoleColor_DarkGreen:   s = "DarkGreen"   'Die Farbe Dunkelgrün.
+    Case ConsoleColor.ConsoleColor_DarkCyan:    s = "DarkCyan"    'Die Farbe Dunkelzyan (dunkles Blaugrün).
+    Case ConsoleColor.ConsoleColor_DarkRed:     s = "DarkRed"     'Die Farbe Dunkelrot.
+    Case ConsoleColor.ConsoleColor_DarkMagenta: s = "DarkMagenta" 'Die Farbe Dunkelmagenta (dunkles, purpurähnliches Rot).
+    Case ConsoleColor.ConsoleColor_DarkYellow:  s = "DarkYellow"  'Die Farbe Dunkelgelb (Ocker).
+    Case ConsoleColor.ConsoleColor_Gray:        s = "Gray"        'Die Farbe Grau.
+    Case ConsoleColor.ConsoleColor_DarkGray:    s = "DarkGray"    'Die Farbe Dunkelgrau.
+    Case ConsoleColor.ConsoleColor_Blue:        s = "Blue"        'Die Farbe Blau.
+    Case ConsoleColor.ConsoleColor_Green:       s = "Green"       'Die Farbe Grün.
+    Case ConsoleColor.ConsoleColor_Cyan:        s = "Cyan"        'Die Farbe Zyan (blaugrün).
+    Case ConsoleColor.ConsoleColor_Red:         s = "Red"         'Die Farbe Rot.
+    Case ConsoleColor.ConsoleColor_Magenta:     s = "Magenta"     'Das Farbe Magenta (purpurähnliches Rot).
+    Case ConsoleColor.ConsoleColor_Yellow:      s = "Yellow"      'Die Farbe Gelb.
+    Case ConsoleColor.ConsoleColor_White:       s = "White"       'Die Farbe Weiß.
+    End Select
+    ConsoleColorToStr = s
 End Function
 
 Private Function GetBufferInfo() As CONSOLE_SCREEN_BUFFER_INFO
@@ -876,7 +1052,7 @@ End Sub
 
 'Public Shared Sub WriteLine()
 Public Sub WriteLine(ByVal Value As String)
-    WriteLineO Value & vbCrLf
+    WriteLineO Value '& vbCrLf
 End Sub
 
 Public Sub WriteLineO(Optional varValue As Variant, Optional ByVal arg0 As Variant, Optional ByVal arg1 As Variant, Optional ByVal arg2 As Variant)

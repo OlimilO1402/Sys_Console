@@ -155,7 +155,7 @@ Public Enum ConsoleKey
     ConsoleKey_OemClear = 254          ' Die CLEAR-TASTE (OEM-spezifisch)
 End Enum
 
-Public Function ConsoleColor_ToStr(c As ConsoleColor) As String
+Public Function ConsoleColorToStr(c As ConsoleColor) As String
     Dim s As String
     Select Case c
     Case ConsoleColor.ConsoleColor_Black:       s = "Black"       'Die Farbe Schwarz.

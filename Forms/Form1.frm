@@ -1,5 +1,5 @@
 VERSION 5.00
-Begin VB.Form Form1 
+Begin VB.Form FMain 
    Caption         =   "Form1"
    ClientHeight    =   3015
    ClientLeft      =   120
@@ -50,12 +50,16 @@ Begin VB.Form Form1
       Width           =   2295
    End
 End
-Attribute VB_Name = "Form1"
+Attribute VB_Name = "FMain"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
+
+Private Sub Form_Load()
+    Me.Caption = App.EXEName & " v" & App.Major & "." & App.Minor & "." & App.Revision
+End Sub
 
 Private Sub BtnTestConsoleTitle_Click()
     TestConsoleTitle
@@ -66,26 +70,119 @@ Private Sub BtnTestConsoleColors_Click()
 End Sub
 
 Private Sub BtnTestConsoleBeep_Click()
-    TestBeep
+    TestConsoleBeep
 End Sub
 
 Private Sub BtnTestConsoleCursor_Click()
-    TestCursor
-    TestSetCursor
-    TestCursor
+    TestConsoleCursor
 End Sub
 
 Private Sub BtnTestConsoleReadWrite_Click()
-    Console.WWrite "Frage Ja oder Nein? (Ja/Nein): "
-    Dim s As String
-    s = Console.ReadLine
-    Console.WriteLine "Deine Antwort war: " & s
-    Console.WWrite "Nenne eine Zahl zwischen 1 und 10: "
-    s = Console.ReadLine
-    Console.WriteLine "Deine Antwort war: " & s
+    TestConsoleReadWrite
 End Sub
 
-Sub TestCursor()
+Sub TestConsoleTitle()
+    MsgBox "Console.Title=" & Console.Title
+    Console.Title = "VB64free .now empowered by MBO-Ing.com"
+    MsgBox "Console.Title=" & Console.Title
+    MsgBox "All Handles valid? " & Console.IsHandlesValid
+End Sub
+Sub TestConsoleColors()
+    Dim s As String: s = " Dings "
+    Console.BackgroundColor = ConsoleColor_Black
+    Console.WWrite s
+    Console.BackgroundColor = ConsoleColor_DarkBlue
+    Console.WWrite s
+    Console.BackgroundColor = ConsoleColor_DarkCyan
+    Console.WWrite s
+    Console.BackgroundColor = ConsoleColor_DarkGray
+    Console.WWrite s
+    Console.BackgroundColor = ConsoleColor_DarkGreen
+    Console.WWrite s
+    Console.BackgroundColor = ConsoleColor_DarkMagenta
+    Console.WWrite s
+    Console.BackgroundColor = ConsoleColor_DarkRed
+    Console.WWrite s
+    Console.BackgroundColor = ConsoleColor_DarkYellow
+    Console.WWrite s
+    
+    Console.BackgroundColor = ConsoleColor_Blue
+    Console.WWrite s
+    Console.BackgroundColor = ConsoleColor_Cyan
+    Console.WWrite s
+    Console.BackgroundColor = ConsoleColor_Gray
+    Console.WWrite s
+    Console.BackgroundColor = ConsoleColor_Green
+    Console.WWrite s
+    Console.BackgroundColor = ConsoleColor_Magenta
+    Console.WWrite s
+    Console.BackgroundColor = ConsoleColor_Red
+    Console.WWrite s
+    Console.BackgroundColor = ConsoleColor_White
+    Console.WWrite s
+    Console.BackgroundColor = ConsoleColor_Yellow
+    Console.WWrite s
+    
+    Console.WriteLine ""
+    
+    Console.BackgroundColor = ConsoleColor_White
+    Console.ForegroundColor = ConsoleColor_Black
+    Console.WWrite s
+    Console.BackgroundColor = ConsoleColor_Black
+    Console.ForegroundColor = ConsoleColor_DarkBlue
+    Console.WWrite s
+    Console.ForegroundColor = ConsoleColor_DarkCyan
+    Console.WWrite s
+    Console.ForegroundColor = ConsoleColor_DarkGray
+    Console.WWrite s
+    Console.ForegroundColor = ConsoleColor_DarkGreen
+    Console.WWrite s
+    Console.ForegroundColor = ConsoleColor_DarkMagenta
+    Console.WWrite s
+    Console.ForegroundColor = ConsoleColor_DarkRed
+    Console.WWrite s
+    Console.ForegroundColor = ConsoleColor_DarkYellow
+    Console.WWrite s
+    
+    Console.ForegroundColor = ConsoleColor_Blue
+    Console.WWrite s
+    Console.ForegroundColor = ConsoleColor_Cyan
+    Console.WWrite s
+    Console.ForegroundColor = ConsoleColor_Gray
+    Console.WWrite s
+    Console.ForegroundColor = ConsoleColor_Green
+    Console.WWrite s
+    Console.ForegroundColor = ConsoleColor_Magenta
+    Console.WWrite s
+    Console.ForegroundColor = ConsoleColor_Red
+    Console.WWrite s
+    Console.ForegroundColor = ConsoleColor_White
+    Console.WWrite s
+    Console.ForegroundColor = ConsoleColor_Yellow
+    Console.WWrite s
+    
+    Console.WriteLine ""
+
+    Dim i As Integer
+    For i = 0 To 15
+        Console.BackgroundColor = i
+        Console.ForegroundColor = 15 - i
+        Console.WWrite s
+    Next
+    
+End Sub
+Sub TestConsoleBeep()
+    Console.Beep
+    Console.BeepF 220, 100
+    Console.BeepF 440, 100
+    Console.BeepF 880, 100
+    Console.BeepF 1760, 100
+    Console.BeepF 1760, 100
+    Console.BeepF 880, 100
+    Console.BeepF 440, 100
+    Console.BeepF 220, 100
+End Sub
+Sub TestConsoleCursor()
     TestGetCursor
     TestSetCursor
     TestGetCursor
@@ -101,109 +198,12 @@ Sub TestSetCursor()
     Console.CursorLeft = 30
     Console.CursorTop = 10
 End Sub
-Sub TestBeep()
-    Console.Beep
-    Console.BeepF 220, 100
-    Console.BeepF 440, 100
-    Console.BeepF 880, 100
-    Console.BeepF 1760, 100
-    Console.BeepF 1760, 100
-    Console.BeepF 880, 100
-    Console.BeepF 440, 100
-    Console.BeepF 220, 100
-End Sub
-Sub TestConsoleTitle()
-    MsgBox "Console.Title=" & Console.Title
-    Console.Title = "VB64free .now empowered by MBO-Ing.com"
-    MsgBox "Console.Title=" & Console.Title
-    MsgBox "All Handles valid? " & Console.IsHandlesValid
-End Sub
-
-Sub TestConsoleColors()
-    Dim s As String: s = " Dings "
-    Console.BackgroundColor = ConsoleColor.ConsoleColor_Black
-    Console.WWrite s
-    Console.BackgroundColor = ConsoleColor.ConsoleColor_DarkBlue
-    Console.WWrite s
-    Console.BackgroundColor = ConsoleColor.ConsoleColor_DarkCyan
-    Console.WWrite s
-    Console.BackgroundColor = ConsoleColor.ConsoleColor_DarkGray
-    Console.WWrite s
-    Console.BackgroundColor = ConsoleColor.ConsoleColor_DarkGreen
-    Console.WWrite s
-    Console.BackgroundColor = ConsoleColor.ConsoleColor_DarkMagenta
-    Console.WWrite s
-    Console.BackgroundColor = ConsoleColor.ConsoleColor_DarkRed
-    Console.WWrite s
-    Console.BackgroundColor = ConsoleColor.ConsoleColor_DarkYellow
-    Console.WWrite s
-    
-    Console.BackgroundColor = ConsoleColor.ConsoleColor_Blue
-    Console.WWrite s
-    Console.BackgroundColor = ConsoleColor.ConsoleColor_Cyan
-    Console.WWrite s
-    Console.BackgroundColor = ConsoleColor.ConsoleColor_Gray
-    Console.WWrite s
-    Console.BackgroundColor = ConsoleColor.ConsoleColor_Green
-    Console.WWrite s
-    Console.BackgroundColor = ConsoleColor.ConsoleColor_Magenta
-    Console.WWrite s
-    Console.BackgroundColor = ConsoleColor.ConsoleColor_Red
-    Console.WWrite s
-    Console.BackgroundColor = ConsoleColor.ConsoleColor_White
-    Console.WWrite s
-    Console.BackgroundColor = ConsoleColor.ConsoleColor_Yellow
-    Console.WWrite s
-    
-    Console.WriteLine ""
-    
-    Console.BackgroundColor = ConsoleColor.ConsoleColor_White
-    Console.ForegroundColor = ConsoleColor.ConsoleColor_Black
-    Console.WWrite s
-    Console.BackgroundColor = ConsoleColor.ConsoleColor_Black
-    Console.ForegroundColor = ConsoleColor.ConsoleColor_DarkBlue
-    Console.WWrite s
-    Console.ForegroundColor = ConsoleColor.ConsoleColor_DarkCyan
-    Console.WWrite s
-    Console.ForegroundColor = ConsoleColor.ConsoleColor_DarkGray
-    Console.WWrite s
-    Console.ForegroundColor = ConsoleColor.ConsoleColor_DarkGreen
-    Console.WWrite s
-    Console.ForegroundColor = ConsoleColor.ConsoleColor_DarkMagenta
-    Console.WWrite s
-    Console.ForegroundColor = ConsoleColor.ConsoleColor_DarkRed
-    Console.WWrite s
-    Console.ForegroundColor = ConsoleColor.ConsoleColor_DarkYellow
-    Console.WWrite s
-    
-    Console.ForegroundColor = ConsoleColor.ConsoleColor_Blue
-    Console.WWrite s
-    Console.ForegroundColor = ConsoleColor.ConsoleColor_Cyan
-    Console.WWrite s
-    Console.ForegroundColor = ConsoleColor.ConsoleColor_Gray
-    Console.WWrite s
-    Console.ForegroundColor = ConsoleColor.ConsoleColor_Green
-    Console.WWrite s
-    Console.ForegroundColor = ConsoleColor.ConsoleColor_Magenta
-    Console.WWrite s
-    Console.ForegroundColor = ConsoleColor.ConsoleColor_Red
-    Console.WWrite s
-    Console.ForegroundColor = ConsoleColor.ConsoleColor_White
-    Console.WWrite s
-    Console.ForegroundColor = ConsoleColor.ConsoleColor_Yellow
-    Console.WWrite s
-    
-    Console.WriteLine ""
-
-    Dim i As Integer
-    For i = 0 To 15
-        Console.BackgroundColor = i
-        Console.ForegroundColor = 15 - i
-        Console.WWrite s
-    Next
-    
-End Sub
-
-Private Sub Form_Load()
-    Me.Caption = App.EXEName & " v" & App.Major & "." & App.Minor & "." & App.Revision
+Sub TestConsoleReadWrite()
+    Console.WWrite "Frage Ja oder Nein? (Ja/Nein): "
+    Dim s As String
+    s = Console.ReadLine
+    Console.WriteLine "Deine Antwort war: " & s
+    Console.WWrite "Nenne eine Zahl zwischen 1 und 10: "
+    s = Console.ReadLine
+    Console.WriteLine "Deine Antwort war: " & s
 End Sub
