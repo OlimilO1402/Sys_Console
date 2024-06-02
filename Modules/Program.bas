@@ -1,4 +1,4 @@
-Attribute VB_Name = "Program"
+Attribute VB_Name = "MApp"
 Option Explicit
 Public Console As Console
 
